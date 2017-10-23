@@ -7,6 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import Button from '../components/Button';
 import Badge from '../components/Badge';
 import TextArea from '../components/TextArea';
+import ButtonGroup from '../components/ButtonGroup';
 
 // storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -19,6 +20,39 @@ storiesOf('Badge', module)
 
 storiesOf('Textarea', module)
 .add('Example', () => <TextArea label="Label" placeholder="Default Placeholder" />);
+
+storiesOf('ButtonGroup', module)
+  .add('Default', () => (
+      <ButtonGroup
+        items={[
+          { label: 'Refresh', value: 'refresh' },
+          { label: 'Edit', value: 'edit' },
+          { label: 'Save', value: 'save' }
+        ]}
+        onChange={action('onChange')}
+      />
+  ))
+  .add('Disabled', () => (
+      <ButtonGroup
+        items={[
+          { label: 'Refresh', value: 'refresh', disabled: true },
+          { label: 'Edit', value: 'edit' },
+          { label: 'Save', value: 'save' }
+        ]}
+        onChange={action('onChange')}
+      />
+  ))
+  .add('Initial value', () => (
+    <ButtonGroup
+      selectedValue="edit"
+      items={[
+        { label: 'Refresh', value: 'refresh' },
+        { label: 'Edit', value: 'edit' },
+        { label: 'Save', value: 'save' }
+      ]}
+      onChange={action('onChange')}
+    />
+  ))
 
 
 
