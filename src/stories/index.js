@@ -7,6 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import Button from '../components/Button';
 import Badge from '../components/Badge';
 import TextArea from '../components/TextArea';
+import Breadcrumb from '../components/Breadcrumb';
 import ButtonGroup from '../components/ButtonGroup';
 
 // storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -21,26 +22,49 @@ storiesOf('Badge', module)
 storiesOf('Textarea', module)
 .add('Example', () => <TextArea label="Label" placeholder="Default Placeholder" />);
 
+storiesOf('Breadcrumb', module)
+  .add('Example', () => {
+    const routes = [{
+      path: 'index',
+      name: 'home'
+    }, {
+      path: 'first',
+      name: 'first'
+    }, {
+      path: 'second',
+      name: 'second'
+    }];
+
+    const renderer = (route) => {
+      const last = routes[routes.length - 1]
+      return route === last ? <span>{route.name}</span> : <a href={route.path}>{route.name}</a>
+    }
+
+    return (
+      <Breadcrumb renderer={renderer} routes={routes} />
+    )
+  })
+
 storiesOf('ButtonGroup', module)
   .add('Default', () => (
-      <ButtonGroup
-        items={[
-          { label: 'Refresh', value: 'refresh' },
-          { label: 'Edit', value: 'edit' },
-          { label: 'Save', value: 'save' }
-        ]}
-        onChange={action('onChange')}
-      />
+    <ButtonGroup
+      items={[
+        { label: 'Refresh', value: 'refresh' },
+        { label: 'Edit', value: 'edit' },
+        { label: 'Save', value: 'save' }
+      ]}
+      onChange={action('onChange')}
+    />
   ))
   .add('Disabled', () => (
-      <ButtonGroup
-        items={[
-          { label: 'Refresh', value: 'refresh', disabled: true },
-          { label: 'Edit', value: 'edit' },
-          { label: 'Save', value: 'save' }
-        ]}
-        onChange={action('onChange')}
-      />
+    <ButtonGroup
+      items={[
+        { label: 'Refresh', value: 'refresh', disabled: true },
+        { label: 'Edit', value: 'edit' },
+        { label: 'Save', value: 'save' }
+      ]}
+      onChange={action('onChange')}
+    />
   ))
   .add('Initial value', () => (
     <ButtonGroup
@@ -53,8 +77,6 @@ storiesOf('ButtonGroup', module)
       onChange={action('onChange')}
     />
   ))
-
-
 
 // storiesOf('Button', module)
 // .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
